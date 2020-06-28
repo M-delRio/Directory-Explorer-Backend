@@ -20,36 +20,36 @@ const folderTotalFileSize = (files => {
   );
 });
 
-const probeDir = ((dir, sourceFolderData = []) => {
+const getFolderContent = ((dir = "./") => {
   const files = fs.readdirSync(dir);
 
-  //object representing current dir/subdir
   const folderData = {
     name: dir,
     files: [],
+    subFolders: [],
     fileCount: 0,
     totalFileSize: 0
   }
 
   let currentFile;
 
-  files.forEach((file) => {
-    const filePath = path.join(dir, file);
+  // iterate each item (file or subdir within folder)
+  files.forEach((item) => {
+    const filePath = path.join(dir, item);
     const fileStat = fs.lstatSync(filePath);
 
+    // if item is a dir add its name to subFolders list
     if (fileStat.isDirectory()) {
-      // sourceFolderData.push(folderData);
-      probeDir(filePath, sourceFolderData);
+      folderData.subFolders.push(item);
+      // if item is a file create a file object and add it to files list
     } else {
-      // object representing current file
       currentFile = {
-        name: file,
+        name: item,
         size: fileStat.size,
         lastModifiedMs: fileStat.mtimeMs,
         lastModifiedDate: fileStat.mtime
       }
 
-      // add file to current dir file list
       folderData.files.push(currentFile);
     }
   });
@@ -64,28 +64,10 @@ const probeDir = ((dir, sourceFolderData = []) => {
   folderData.files =
     folderData.files.sort(fileSizeCompare);
 
-  sourceFolderData.push(folderData);
-
-  return sourceFolderData;
+  return folderData;
 });
 
-let results = probeDir('./');
+// local testing
+// let results = probeDir('./');
 
-const folderSizeCompare = ((a, b) => {
-  return (a.totalFileSize - b.totalFileSize);
-});
-
-// sort dirs by total size of files within each dir
-results = results.sort(folderSizeCompare);
-
-//log results
-// console.log(results);
-
-// results.forEach(folder => {
-//   folder.files.forEach(file => {
-//     console.log(file);
-
-//   })
-
-return results;
-});
+export default getFolderContent;
