@@ -20,11 +20,15 @@ const folderTotalFileSize = (files => {
   );
 });
 
-const getFolderContent = ((dir = "./") => {
-  const files = fs.readdirSync(dir);
+const getFolderContent = (relativeQueryPath => {
+  // construct absolute path from home dir
+  const homedir = require('os').homedir();
+  const absoluteQueryPath = path.join(homedir, relativeQueryPath);
+
+  const files = fs.readdirSync(absoluteQueryPath);
 
   const folderData = {
-    name: dir,
+    name: absoluteQueryPath,
     files: [],
     subFolders: [],
     fileCount: 0,
@@ -35,7 +39,8 @@ const getFolderContent = ((dir = "./") => {
 
   // iterate each item (file or subdir within folder)
   files.forEach((item) => {
-    const filePath = path.join(dir, item);
+    const filePath = path.join(absoluteQueryPath, item);
+    // const filePath = path.join(absoluteQueryPath, item);
     const fileStat = fs.lstatSync(filePath);
 
     // if item is a dir add its name to subFolders list
