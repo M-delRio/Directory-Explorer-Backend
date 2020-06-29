@@ -39,6 +39,8 @@ This path will be joined to the home directory. Valid paths include the home dir
 - **sourceFolder**(string): the submitted source folder path
 - **files**(array): object representation of files (see file object description below) within the source folder sorted by file size 
 - **subFolders**(array): the child subfolders of the source folder
+- **fileCount**(array): number of files within the source folder
+- **totalFileSize**(array): total size in bytes of the files within the source folder
 
 #### File Objects
 ```json
