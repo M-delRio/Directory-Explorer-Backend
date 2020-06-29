@@ -22,13 +22,14 @@ const folderTotalFileSize = (files => {
 
 const getFolderContent = (relativeQueryPath => {
   // construct absolute path from home dir
-  const homedir = require('os').homedir();
-  const absoluteQueryPath = path.join(homedir, relativeQueryPath);
+  const baseFolder = require('os').homedir();
+  const absoluteQueryPath = path.join(baseFolder, relativeQueryPath);
 
   const files = fs.readdirSync(absoluteQueryPath);
 
   const folderData = {
-    name: absoluteQueryPath,
+    sourceFolder: absoluteQueryPath,
+    // sourceFolder: relativeQueryPath,
     files: [],
     subFolders: [],
     fileCount: 0,
@@ -52,7 +53,7 @@ const getFolderContent = (relativeQueryPath => {
         name: item,
         size: fileStat.size,
         lastModifiedMs: fileStat.mtimeMs,
-        lastModifiedDate: fileStat.mtime
+        lastModifiedDate: fileStat.mtime.toString()
       }
 
       folderData.files.push(currentFile);
@@ -71,8 +72,5 @@ const getFolderContent = (relativeQueryPath => {
 
   return folderData;
 });
-
-// local testing
-// let results = probeDir('./');
 
 export default getFolderContent;
