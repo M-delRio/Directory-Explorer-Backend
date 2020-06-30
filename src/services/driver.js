@@ -24,8 +24,14 @@ const getFolderContent = (relativeQueryPath => {
   // construct absolute path from home dir
   const baseFolder = require('os').homedir();
   const absoluteQueryPath = path.join(baseFolder, relativeQueryPath);
+  let files;
 
-  const files = fs.readdirSync(absoluteQueryPath);
+  // does the folder exist?
+  try {
+    files = fs.readdirSync(absoluteQueryPath);
+  } catch (error) {
+    throw error;
+  }
 
   const folderData = {
     sourceFolder: absoluteQueryPath,

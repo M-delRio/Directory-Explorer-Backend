@@ -10,7 +10,28 @@ const handleGetFolderContent = async (req, res, next) => {
   const queryPath = params.path;
   let responseObj;
 
-  const data = await getFolderContent(queryPath);
+  try {
+    const data = await getFolderContent(queryPath);
+
+    responseObj = {
+      "message": "Folder content successfully retrieved",
+      "data": data
+    }
+  } catch (error) {
+    let message;
+
+    if (error.code === "ENOENT") {
+      message = "Folder not found!";
+      res.status(422);
+    } else {
+      message = "An error of an unknown type occured while trying to access this folder";
+      res.status(500);
+    }
+
+    responseObj = {
+      "message": message
+    }
+  }
 
   //   {
   //     "message": "Folder content successfully retrieved",
@@ -23,18 +44,10 @@ const handleGetFolderContent = async (req, res, next) => {
   //     }
   // }
 
-  if (data) {
-    responseObj = {
-      "message": "Folder content successfully retrieved",
-      "data": data
-    }
-  } else {
-    responseObj = {
-      "message": "The server encountered an error.",
-    }
-    res.status(500);
-  }
-  res.json(responseObj);
+  res.setHeader('Content-Type', 'application/json');
+  const parsedResponse = (JSON.stringify(responseObj, null, 4))
+  res.send(parsedResponse);
+  // res.json(responseObj);
 }
 
 router.get("/", handleGetFolderContent);
