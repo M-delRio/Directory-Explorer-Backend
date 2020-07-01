@@ -20,7 +20,7 @@ const folderTotalFileSize = (files => {
   );
 });
 
-const getFolderContent = (relativeQueryPath => {
+const getFolderContent = ((relativeQueryPath = "") => {
   // construct absolute path from home dir
   const baseFolder = require('os').homedir();
   const absoluteQueryPath = path.join(baseFolder, relativeQueryPath);

@@ -6,42 +6,38 @@ const router = Router();
 const handleGetFolderContent = async (req, res, next) => {
   // add helper function for input validation
 
-  const params = req.body;
+  console.log('yo');
+  console.log(req.query.path);
+
+  const params = req.query;
   const queryPath = params.path;
   let responseObj;
 
-  try {
-    const data = await getFolderContent(queryPath);
+  const data = await getFolderContent(queryPath).catch(next);
 
-    responseObj = {
-      "message": "Folder content successfully retrieved",
-      "data": data
-    }
-  } catch (error) {
-    let message;
+  // try {
+  //   const data = await getFolderContent(queryPath);
 
-    if (error.code === "ENOENT") {
-      message = "Folder not found!";
-      res.status(422);
-    } else {
-      message = "An error of an unknown type occured while trying to access this folder";
-      res.status(500);
-    }
-
-    responseObj = {
-      "message": message
-    }
-  }
-
-  //   {
+  //   responseObj = {
   //     "message": "Folder content successfully retrieved",
-  //     "data": {
-  //         "sourceFolder": "images/company_retreat",
-  //         "files": [{fileObject1}, {fileObject2}, {fileObject3}],
-  //         "subFolders": ["2020", "2019", "2018"],
-  //         "fileCount": 45,
-  //         "totalFileSize": 500000000
-  //     }
+  //     "data": data
+  //   }
+  // } catch (error) {
+  //   next(error);
+
+  // let message;
+
+  // if (error.code === "ENOENT") {
+  //   message = "Folder not found!";
+  //   res.status(422);
+  // } else {
+  //   message = "An error of an unknown type occured while trying to access this folder";
+  //   res.status(500);
+  // }
+
+  // responseObj = {
+  //   "message": message
+  // }
   // }
 
   res.setHeader('Content-Type', 'application/json');

@@ -1,11 +1,11 @@
 {
-  "name": "folderviewbackend",
+  "name": "folder_view_backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "backend for Folder Viewer app",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon --exec babel-node src/start.js",
+    "test": "cross-env NODE_ENV=test jest --testTimeout=10000"
   },
   "author": "",
   "license": "ISC",
@@ -14,12 +14,24 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1"
   },
+  "browserslist": [
+    "since 2017-06"
+  ],
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
   "devDependencies": {
     "@babel/cli": "^7.10.3",
     "@babel/core": "^7.10.3",
     "@babel/node": "^7.10.3",
     "@babel/preset-env": "^7.10.3",
     "eslint": "^4.12.1",
-    "nodemon": "^2.0.3"
+    "jest": "^26.1.0",
+    "nodemon": "^2.0.3",
+    "supertest": "^4.0.2",
+    "cross-env": "^7.0.2"
   }
 }
