@@ -17,6 +17,24 @@ describe("successful GET requests", () => {
 })
 
 describe("unsuccessful GET requests", () => {
+  it("invalid input, forward slash in folder name", async () => {
+    const res = await request(app)
+      .get("/folders?path=as//a")
+
+    expect(res.statusCode).toEqual(422)
+    expect(res.body).toHaveProperty("message")
+    expect(res.body.message).toBe("/ character cannot be part of a folder's name")
+  })
+
+  it("invalid input, double period used to move up a folder", async () => {
+    const res = await request(app)
+      .get("/folders?path=as/../a")
+
+    expect(res.statusCode).toEqual(422)
+    expect(res.body).toHaveProperty("message")
+    expect(res.body.message).toBe("moving up a folder is not permitted")
+  })
+
   it("request to ressource that does not exist", async () => {
     const res = await request(app)
       .get("/foldersss")

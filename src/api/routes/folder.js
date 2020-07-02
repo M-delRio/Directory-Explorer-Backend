@@ -7,19 +7,18 @@ const router = Router();
 const handleGetFolderContent = async (req, res, next) => {
   console.log(req.query.path);
 
-  let queryPath = req.query.path;
+  let queryPath = req.query.path || "";
 
   try {
-    queryPath = await validateInput(queryPath);
+    await validateInput(queryPath);
   } catch (error) {
-    console.log('here');
     console.log(error.code);
 
     next(error)
     return
   }
 
-  // console.log(queryPath);
+  let data;
 
   try {
     data = await getFolderContent(queryPath);

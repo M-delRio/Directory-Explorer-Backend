@@ -5,8 +5,9 @@ const anyInvalidCharacter = (queryPath) => {
   return false;
 }
 
+// rule out moving up a folder
 const anyInvalidPeriods = (queryPath) => {
-  if (queryPath.match(/(..\/)|(\.\.$)/)) {
+  if (queryPath.match(/(\/\.\.\/)|(\/\.\.$)|(^\/\.\.$)|(^\.\.$)/)) {
     return true;
   }
   return false;
@@ -28,6 +29,8 @@ const validateInput = async (queryPath) => {
     error.code = "INVPERIOD";
     throw error;
   }
+
+  return true;
 }
 
 
