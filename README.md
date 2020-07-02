@@ -55,3 +55,18 @@ This path will be joined to the home directory. Valid paths include the home dir
 - **name**(string): file name
 - **size**(integer): file size in bytes
 - **lastModifiedDate**(string): date and time when a file was last modified
+
+## Error Handling
+
+Standard HTTP codes are used to convey whether a request is successful or if an error occured. A JSON object will be returned with a single *message* attribute. 
+
+### Example Response - Request for a non existant source folder
+
+```json
+{
+  "message": "Folder not found!"  
+}
+```
+
+
+

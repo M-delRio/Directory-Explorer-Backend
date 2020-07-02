@@ -59,7 +59,13 @@ app.use((error, req, res, next) => {
   let message;
 
   // console.log(error.code);
-  if (error.code === "ENOENT") {
+  if (error.code === "INVCHAR") {
+    res.status(422);
+    message = "/ character cannot be part of a folder's name";
+  } else if (error.code === "INVPERIOD") {
+    res.status(422);
+    message = "moving up a folder is not permitted";
+  } else if (error.code === "ENOENT") {
     res.status(422);
     message = "Folder not found!";
   } else if (error.statusCode === 404) {

@@ -1,28 +1,34 @@
 import { Router } from "express";
-import getFolderContent from "../../services/driver"
+import getFolderContent from "../../services/getFolderContent"
+import validateInput from "../../services/validateInput"
 
 const router = Router();
 
 const handleGetFolderContent = async (req, res, next) => {
-  // add helper function for input validation
-
   console.log(req.query.path);
 
-  const params = req.query;
-  const queryPath = params.path;
-  let data;
+  let queryPath = req.query.path;
 
   try {
-    data = await getFolderContent(queryPath);
+    queryPath = await validateInput(queryPath);
   } catch (error) {
-    console.log("in handleGet catch");
+    console.log('here');
+    console.log(error.code);
 
     next(error)
     return
   }
 
-  console.log("in handleGet post catch");
+  // console.log(queryPath);
 
+  try {
+    data = await getFolderContent(queryPath);
+  } catch (error) {
+    next(error)
+    return
+  }
+
+  // console.log("in handleGet post catch");
 
   const responseObj = {
     "message": "Folder content successfully retrieved",
@@ -32,18 +38,6 @@ const handleGetFolderContent = async (req, res, next) => {
   res.setHeader('Content-Type', 'application/json');
   const parsedResponse = (JSON.stringify(responseObj, null, 4))
   res.send(parsedResponse);
-
-  // if (error.code === "ENOENT") {
-  //   message = "Folder not found!";
-  //   res.status(422);
-  // } else {
-  //   message = "An error of an unknown type occured while trying to access this folder";
-  //   res.status(500);
-  // }
-
-
-
-  // res.json(responseObj);
 }
 
 router.get("/", handleGetFolderContent);
