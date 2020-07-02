@@ -6,26 +6,32 @@ const router = Router();
 const handleGetFolderContent = async (req, res, next) => {
   // add helper function for input validation
 
-  console.log('yo');
   console.log(req.query.path);
 
   const params = req.query;
   const queryPath = params.path;
-  let responseObj;
+  let data;
 
-  const data = await getFolderContent(queryPath).catch(next);
+  try {
+    data = await getFolderContent(queryPath);
+  } catch (error) {
+    console.log("in handleGet catch");
 
-  // try {
-  //   const data = await getFolderContent(queryPath);
+    next(error)
+    return
+  }
 
-  //   responseObj = {
-  //     "message": "Folder content successfully retrieved",
-  //     "data": data
-  //   }
-  // } catch (error) {
-  //   next(error);
+  console.log("in handleGet post catch");
 
-  // let message;
+
+  const responseObj = {
+    "message": "Folder content successfully retrieved",
+    "data": data
+  }
+
+  res.setHeader('Content-Type', 'application/json');
+  const parsedResponse = (JSON.stringify(responseObj, null, 4))
+  res.send(parsedResponse);
 
   // if (error.code === "ENOENT") {
   //   message = "Folder not found!";
@@ -35,14 +41,8 @@ const handleGetFolderContent = async (req, res, next) => {
   //   res.status(500);
   // }
 
-  // responseObj = {
-  //   "message": message
-  // }
-  // }
 
-  res.setHeader('Content-Type', 'application/json');
-  const parsedResponse = (JSON.stringify(responseObj, null, 4))
-  res.send(parsedResponse);
+
   // res.json(responseObj);
 }
 

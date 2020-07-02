@@ -17,7 +17,6 @@ app.get('*', function (req, res, next) {
   );
 
   error.statusCode = 404;
-
   next(error);
 });
 
@@ -25,8 +24,6 @@ app.post('*', function (req, res, next) {
   const error = new Error(
     `${req.ip} tried to access ${req.originalUrl}`,
   );
-
-  console.log(405405405);
 
   error.statusCode = 405;
   next(error);
@@ -36,7 +33,6 @@ app.put('*', function (req, res, next) {
   const error = new Error(
     `${req.ip} tried to access ${req.originalUrl}`,
   );
-
   error.statusCode = 405;
   next(error);
 });
@@ -45,7 +41,6 @@ app.patch('*', function (req, res, next) {
   const error = new Error(
     `${req.ip} tried to access ${req.originalUrl}`,
   );
-
 
   error.statusCode = 405;
   next(error);
@@ -56,7 +51,6 @@ app.delete('*', function (req, res, next) {
     `${req.ip} tried to access ${req.originalUrl}`,
   );
 
-
   error.statusCode = 405;
   next(error);
 });
@@ -64,20 +58,23 @@ app.delete('*', function (req, res, next) {
 app.use((error, req, res, next) => {
   let message;
 
-  if (!error.statusCode) error.statusCode = 500;
-
-  if (error.statusCode === 404) {
+  // console.log(error.code);
+  if (error.code === "ENOENT") {
+    res.status(422);
+    message = "Folder not found!";
+  } else if (error.statusCode === 404) {
     res.status(404);
     message = 'the requested ressource does not exist';
-  }
-
-  if (error.statusCode === 405) {
+  } else if (error.statusCode === 405) {
     res.status(405)
     message = 'unsupported http method';
+  } else {
+    res.status(500)
+    message = 'server side error of unknown type';
   }
 
   return res
-    .status(error.statusCode)
+    // .status(error.statusCode)
     .json({ message: message });
   // .json({ message: error.toString() });
 });

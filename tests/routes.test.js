@@ -1,62 +1,75 @@
-const request = require('supertest')
-const app = require('../src/server')
+const request = require("supertest")
+const app = require("../src/server")
 
-// describe('successful GET Endpoints', () => {
-//   it('should receive reponse of default/home folder content', async () => {
-//     const res = await request(app)
-//       .get('/folderss')
-//     // .send()
-//     expect(res.statusCode).toEqual(200)
-//     // expect(res.body).toHaveProperty('message')
-//   })
-// })
+//mock data for successful response
 
+//input validation handling + testing (sanitation + prevent moving up directory)
 
-describe('unsuccessful GET Endpoints', () => {
-  it('get request to ressource that does not exist', async () => {
+describe("successful GET requests", () => {
+  it("should receive reponse of default/home folder content", async () => {
     const res = await request(app)
-      .get('/foldersss')
+      .get("/folders")
 
-    expect(res.statusCode).toEqual(404)
-    expect(res.body).toHaveProperty('message')
-    expect(res.body.message).toBe('the requested ressource does not exist')
+    expect(res.statusCode).toEqual(200)
+    expect(res.body).toHaveProperty("message")
+    expect(res.body.message).toBe("Folder content successfully retrieved")
   })
 })
 
-describe('unsuccessful HTTP methods', () => {
-  it('POST request', async () => {
+describe("unsuccessful GET requests", () => {
+  it("request to ressource that does not exist", async () => {
     const res = await request(app)
-      .post('/folders')
+      .get("/foldersss")
 
-    expect(res.statusCode).toEqual(405)
-    expect(res.body).toHaveProperty('message')
-    expect(res.body.message).toBe('unsupported http method')
+    expect(res.statusCode).toEqual(404)
+    expect(res.body).toHaveProperty("message")
+    expect(res.body.message).toBe("the requested ressource does not exist")
   })
 
-  it('PATCH request', async () => {
+  it("request for a non existant source folder", async () => {
     const res = await request(app)
-      .patch('/folders')
+      .get("/folders?path=as;dlkfj;daslkf/asdfasf")
+
+    expect(res.statusCode).toEqual(422)
+    expect(res.body).toHaveProperty("message")
+    expect(res.body.message).toBe("Folder not found!")
+  })
+})
+
+describe("unsuccessful HTTP methods", () => {
+  it("POST request", async () => {
+    const res = await request(app)
+      .post("/folders")
 
     expect(res.statusCode).toEqual(405)
-    expect(res.body).toHaveProperty('message')
-    expect(res.body.message).toBe('unsupported http method')
+    expect(res.body).toHaveProperty("message")
+    expect(res.body.message).toBe("unsupported http method")
   })
 
-  it('PUT request', async () => {
+  it("PATCH request", async () => {
     const res = await request(app)
-      .put('/folders')
+      .patch("/folders")
 
     expect(res.statusCode).toEqual(405)
-    expect(res.body).toHaveProperty('message')
-    expect(res.body.message).toBe('unsupported http method')
+    expect(res.body).toHaveProperty("message")
+    expect(res.body.message).toBe("unsupported http method")
   })
 
-  it('DELETE request', async () => {
+  it("PUT request", async () => {
     const res = await request(app)
-      .delete('/folders')
+      .put("/folders")
 
     expect(res.statusCode).toEqual(405)
-    expect(res.body).toHaveProperty('message')
-    expect(res.body.message).toBe('unsupported http method')
+    expect(res.body).toHaveProperty("message")
+    expect(res.body.message).toBe("unsupported http method")
+  })
+
+  it("DELETE request", async () => {
+    const res = await request(app)
+      .delete("/folders")
+
+    expect(res.statusCode).toEqual(405)
+    expect(res.body).toHaveProperty("message")
+    expect(res.body.message).toBe("unsupported http method")
   })
 })

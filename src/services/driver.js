@@ -33,6 +33,9 @@ const getFolderContent = ((relativeQueryPath = "") => {
     throw error;
   }
 
+  console.log("post catch");
+
+
   const folderData = {
     sourceFolder: absoluteQueryPath,
     // sourceFolder: relativeQueryPath,
