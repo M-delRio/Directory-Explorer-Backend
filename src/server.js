@@ -69,7 +69,6 @@ app.delete('*', function (req, res, next) {
 app.use((error, req, res, next) => {
   let message;
 
-  // console.log(error.code);
   if (error.code === "INVCHAR") {
     res.status(422);
     message = "/ character cannot be part of a folder's name";
