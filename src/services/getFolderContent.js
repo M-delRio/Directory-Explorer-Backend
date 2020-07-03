@@ -1,13 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 
-// currentFile = {
-//   name: file,
-//   size: fileStat.size,
-//   lastModifiedMs: fileStat.mtimeMs,
-//   lastModifiedDate: fileStat.mtime
-// }
-
 const fileSizeCompare = ((a, b) => {
   return (a.size - b.size);
 });

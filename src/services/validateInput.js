@@ -33,5 +33,4 @@ const validateInput = async (queryPath) => {
   return true;
 }
 
-
 export default validateInput;

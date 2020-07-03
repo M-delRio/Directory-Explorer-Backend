@@ -1,10 +1,6 @@
 const request = require("supertest")
 const app = require("../src/server")
 
-//mock data for successful response
-
-//input validation handling + testing (sanitation + prevent moving up directory)
-
 describe("successful GET requests", () => {
   it("should receive reponse of default/home folder content", async () => {
     const res = await request(app)

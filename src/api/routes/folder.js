@@ -27,8 +27,6 @@ const handleGetFolderContent = async (req, res, next) => {
     return
   }
 
-  // console.log("in handleGet post catch");
-
   const responseObj = {
     "message": "Folder content successfully retrieved",
     "data": data
