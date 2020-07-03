@@ -79,4 +79,5 @@ const getFolderContent = ((relativeQueryPath) => {
   return folderData;
 });
 
-export default getFolderContent;
+module.exports = getFolderContent;
+// export default getFolderContent;

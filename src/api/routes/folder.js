@@ -1,6 +1,11 @@
-import { Router } from "express";
-import getFolderContent from "../../services/getFolderContent"
-import validateInput from "../../services/validateInput"
+const express = require("express");
+const Router = express.Router;
+
+const getFolderContent = require("../../services/getFolderContent");
+const validateInput = require("../../services/validateInput");
+
+// import getFolderContent from "../../services/getFolderContent"
+// import validateInput from "../../services/validateInput"
 
 const router = Router();
 
@@ -39,20 +44,7 @@ const handleGetFolderContent = async (req, res, next) => {
 
 router.get("/", handleGetFolderContent);
 
-export default router;
+module.exports = router;
 
-// currentFile = {
-//   name: item,
-//   size: fileStat.size,
-//   lastModifiedMs: fileStat.mtimeMs,
-//   lastModifiedDate: fileStat.mtime.toString()
-// }
+// export default router;
 
-// const folderData = {
-//   name: absoluteQueryPath,
-//   // name: relativeQueryPath,
-//   files: [],
-//   subFolders: [],
-//   fileCount: 0,
-//   totalFileSize: 0
-// }

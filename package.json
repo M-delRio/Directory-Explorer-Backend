@@ -2,9 +2,9 @@
   "name": "folder_view_backend",
   "version": "1.0.0",
   "description": "backend for Folder Viewer app",
-  "main": "index.js",
+  "main": "./src/start.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/start.js",
+    "start": "node src/start.js",
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000"
   },
   "author": "",

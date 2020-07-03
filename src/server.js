@@ -1,10 +1,16 @@
-import "dotenv/config";
-import express from "express";
-import cors from "cors";
-import routes from "./api/routes";
-import compression from "compression"
-import helmet from "helmet"
+require('dotenv').config();
+const express = require("express");
+const cors = require("cors");
+const routes = require("./api/routes");
+const compression = require("compression");
+const helmet = require("helmet");
 
+// import "dotenv/config";
+// import express from "express";
+// import cors from "cors";
+// import routes from "./api/routes";
+// import compression from "compression"
+// import helmet from "helmet"
 
 const app = express();
 
