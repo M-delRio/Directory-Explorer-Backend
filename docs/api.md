@@ -5,7 +5,7 @@ This API can be used to retrieve information about the content of a folder on th
 ## Requests
 
 ### Base URL (TBD)
-`https://hostname(:port)`
+`https://hostname[:port]`
 
 ### GET Request
 `GET /folders`
@@ -19,7 +19,7 @@ Submit a path relative to the server's home directory.
 }
 ```
 
-This path will be joined to the server's home directory to form an absolute. Valid paths include the home directory  itself (by submitting an empty string) and any descendant folders of the home directory. Parent folders of the server's home directory are not accessible (requests with `..` used in any part of the path to move up a directory will be rejected).
+This path will be joined to the server's home directory to form an absolute path. Valid paths include the home directory  itself (by submitting an empty string or `./`) and any descendant folders of the home directory. Parent folders of the server's home directory are not accessible (requests with `..` used in any part of the path to move up a directory will be rejected).
 
 #### Response body - Success
 ```json
@@ -37,6 +37,8 @@ This path will be joined to the server's home directory to form an absolute. Val
 
 ##### Attributes
 - **message**(string): indication of whether the request succeeded or not
+
+
 **data**: this object will only be present in the case of a successful request
 - **sourceFolder**(string): the submitted source folder path
 - **files**(array): object representation of files (see file object description below) within the source folder sorted by file size 
