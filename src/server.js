@@ -71,22 +71,22 @@ app.use((error, req, res, next) => {
 
   if (error.code === "INVCHAR") {
     res.status(422);
-    message = "/ character cannot be part of a folder's name";
+    message = "Forward slash character cannot be part of a folder's name";
   } else if (error.code === "INVPERIOD") {
     res.status(422);
-    message = "moving up a folder is not permitted";
+    message = "Moving up a folder is not permitted";
   } else if (error.code === "ENOENT") {
     res.status(422);
-    message = "Folder not found!";
+    message = "Folder not found";
   } else if (error.statusCode === 404) {
     res.status(404);
-    message = 'the requested ressource does not exist';
+    message = 'The requested ressource does not exist';
   } else if (error.statusCode === 405) {
     res.status(405)
-    message = 'unsupported http method';
+    message = 'Unsupported http method';
   } else {
     res.status(500)
-    message = 'server side error of unknown type';
+    message = 'Server side error of unknown type';
   }
 
   return res

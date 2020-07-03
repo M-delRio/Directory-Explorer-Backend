@@ -10,15 +10,11 @@ const validateInput = require("../../services/validateInput");
 const router = Router();
 
 const handleGetFolderContent = async (req, res, next) => {
-  console.log(req.query.path);
-
   let queryPath = req.query.path || "";
 
   try {
     await validateInput(queryPath);
   } catch (error) {
-    console.log(error.code);
-
     next(error)
     return
   }

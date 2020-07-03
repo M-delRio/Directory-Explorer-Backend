@@ -4,8 +4,12 @@ API documentation can be found [here](./docs/api.md).
 
 The following steps are recommended prior to deployment.
 
+## Duplication of Error Handling Logic 
+
+Currently all error handling occurs within the Express app. Certain error handling could be duplicated within the React and CLI tools. Checking to see if an invalid path was entered (path that contains a `\` character or attempts to move up a directory) would decrease the load of the Express app. 
+
 ## Restarts - Process Manager and an Init System
-Currently the app is simply run with the `npm start` command. However this is not a robust setup for deployment. If the app or server crashes a reliable mechanism is required to ensure the app is run. 
+Currently the app is simply run with the `npm start` command (preceded by `npm install`). However this is not a robust setup for deployment. If the app or server crashes a reliable mechanism is required to ensure the app is run. 
 
 A process manager such as *PM2* can be used to run the app as it restarts the app if it crashes.
 
@@ -29,6 +33,10 @@ A web server such as Nginx could provide many feature to decrease the applicatio
 
 ### Compression
 Currently compression is enabled via the node *compression* module however this role is better suited for a web server. 
+
+### SSL Offloading
+
+Used as a proxy Nginx can offload the SSL decryption processing from backend servers. 
 
 ### Other
 

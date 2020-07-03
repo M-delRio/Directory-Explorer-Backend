@@ -70,6 +70,12 @@ const getFolderContent = ((relativeQueryPath) => {
   folderData.files =
     folderData.files.sort(fileSizeCompare);
 
+  // sort subfolders alphabetically
+  folderData.subFolders =
+    folderData.subFolders.sort(fileSizeCompare);
+  // folderData.subFolders.sort(fileSizeCompare);
+
+
   return folderData;
 });
 
