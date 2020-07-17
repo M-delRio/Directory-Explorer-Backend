@@ -5,7 +5,7 @@ This API can be used to retrieve information about the content of a folder on th
 ## Requests
 
 ### Base URL (TBD)
-`https://hostname:3001]`
+`https://hostname:3001`
 
 ### GET Request
 `GET /folders`
