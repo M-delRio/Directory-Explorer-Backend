@@ -11,12 +11,10 @@ This API can be used to retrieve information about the content of a folder on th
 `GET /folders`
 
 #### Request body
-Submit a path relative to the server's home directory.
-
-```json
-{
-  "path": "images/company_retreat"  
-}
+Submit a query string to view a folder path:
+```cli
+key: "path"
+value: "images/company_retreat"
 ```
 
 This path will be joined to the server's home directory to form an absolute path. Valid paths include the home directory  itself (by submitting an empty string or `./`) and any descendant folders of the home directory. Parent folders of the server's home directory are not accessible (requests with `..` used in any part of the path to move up a directory will be rejected).
