@@ -1,8 +1,8 @@
-const folder = require("./folder");
-// import folder from "./folder";
+// const folder = require("./folder");
+import folder from "./folder";
 
-module.exports = { folder };
+// module.exports = { folder };
 
-// export default {
-//   folder
-// };
+export default {
+  folder
+};

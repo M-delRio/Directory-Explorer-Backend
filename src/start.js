@@ -1,6 +1,10 @@
-const app = require('./server.js')
-// import app from "./server.js";
+// const app = require('./server.js')
+import app from "./server.js";
 
-app.listen(process.env.PORT);
-
+try {
+  app.listen(process.env.PORT);
+} catch (error) {
+  console.log(error);
+}
+console.log(process.env.PORT);
 

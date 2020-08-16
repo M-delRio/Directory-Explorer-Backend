@@ -4,7 +4,9 @@
   "description": "backend for Folder Viewer app",
   "main": "./src/start.js",
   "scripts": {
-    "start": "node src/start.js",
+    "dev": "nodemon --exec babel-node src/start.js",
+    "build": "babel src -d dist",
+    "serve": "node dist/start.js",
     "test": "cross-env NODE_ENV=test jest --testTimeout=10000"
   },
   "author": "",
